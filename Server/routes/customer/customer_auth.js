@@ -6,33 +6,45 @@ const config = require('../../config/config');
 const connection = config.connection;
 
 
-router.get('/',(request,response)=>{
+//variables
+var C_id=1
 
-    sql_statement='SELECT * FROM USERS'
+//implement use cases
+
+router.get('/SignUp',(request,response)=>{
+
+    sql_statement='SELECT FirstName FROM Customer'
     connection.query(sql_statement,(err,rows)=>{
         
         if (err){
             console.log("Error!",err)
-        }else{
+        }
+        else{
             response.send(rows)
         }
     })
 })
 
 
-router.post('/register',async(request,response)=>{
+router.post('/SignUp',async(request,response)=>{
     var body =request.body
-    var name = body.username
-    var pass = body.password
+    var id=C_id.toString()
+    var email=body.Email
+    var fname = body.FirstName
+    var lname= body.LastName
+    var password = body.Password
+    var paydue='0'
     
     // console.log(body)
-    sql_statement = 'INSERT INTO USERS (id,name,pass) VALUES (?,?,?)'
-    connection.query(sql_statement,[null,name,pass],(err,rows)=>{
+    sql_statement = 'INSERT INTO Customer (CustomerID, Email, FirstName, LastName, Password, Payments_Due) VALUES (?,?,?,?,?,?)'
+    connection.query(sql_statement,[id,email,fname,lname,password, paydue],(err,rows)=>{
         if (err){
             console.log("ERROR",err)
             response.sendStatus(400)
         }else{
             response.sendStatus(200)
+            C_id++;    
+
         }
     })
 })

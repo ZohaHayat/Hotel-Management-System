@@ -9,13 +9,13 @@ app.use(express.json())
 
 //Authentication Routes
 
-const Customer_Register= require('./routes/customer/customer_auth') 
+const Customer_Register= require('./routes/customer/customer_auth') //connects to the customer
 app.use('/customerauth',Customer_Register)
 
 
 
-var port=8597
+var port=8000
 app.listen(port,()=>{
-    console.log(`Server is running on ${port}`);
+    console.log(`Server is running on ${port}`); //listens to the server
 });
 
