@@ -26,4 +26,4 @@ CREATE TABLE hotel_management.Facilities
     (FacilityID varchar(45), Name_of_facility varchar(45), Facility_Rate varchar(45), Primary key (FacilityID)); 
 
 CREATE TABLE hotel_management.Inventory
-    (Inventory_item varchar(45), StaffID varchar(45), Category varchar(45), Quantity varchar(45), Date Date , Primary key(Inventory_item), foreign key (StaffID) references Staff(StaffID)); 
+    (Inventory_item varchar(45), StaffID varchar(45), Category varchar(45), Quantity varchar(45), Date Date , Primary key(Inventory_item)); 
