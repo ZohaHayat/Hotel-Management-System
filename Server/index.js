@@ -5,16 +5,17 @@ var app = express();
 app.use("/",router)
 app.use(express.json())
 // app.use(cors());
+module.exports = router;
 
 
 //Authentication Routes
 
-const Customer_Register= require('./routes/customer/customer_auth') //connects to the customer
-app.use('/customerauth',Customer_Register)
+const Customer_Register= require('.') //connects to the customer
+app.use('/routes/customer/customer_auth',Customer_Register)
 
 
 
-var port=8000
+var port=3001
 app.listen(port,()=>{
     console.log(`Server is running on ${port}`); //listens to the server
 });
