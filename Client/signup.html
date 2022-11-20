@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet" /><link href="signup.css" rel="stylesheet" />
+        <title>Signup</title>
+    </head>
+    <body>
+        <h1>DB Continental Hotel</h1>
+        <h2>Sign up</h2>
+        <form action="auth" onsubmit="return validateForm()" method="post">
+            
+            <label for="first_name">
+                <input type="text" id="first_name" placeholder="First name">
+            </label>
+            <br>
+            <br>
+            <label for="last_name">
+                <input type="text" id="last_name" placeholder="Last name">
+            </label>
+            
+            <br>
+            <br>
+            <label for="email">
+                <input type="email" id="email" placeholder="Email">
+            </label></span>
+            <br>
+            <br>
+            <label for="password">
+                <input type="password" id="password" placeholder="Password">
+            </label>
+            <br>
+            <br>
+            <input id="signup-button" type="submit" value="Submit">
+                      
+        </form>
+
+
+    <script>
+        function mySignup() {
+            console.log("my sign up called")
+
+        }
+
+        function validateForm(){
+                let x = document.forms["login_form"]["email"].value
+
+                if (x==""){
+                    alert("Email must be filled out");
+                    return false
+                }
+            }
+
+
+        const button = document.getElementById("signup-button");
+        button.addEventListener("click",mySignup);
+    
+    </script>
+    </body>
+</html>

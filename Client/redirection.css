@@ -1,0 +1,28 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  font-size: 14px;
+}
+.v26_30 {
+  width: 100%;
+  height: 1024px;
+  background: rgba(253,255,244,1);
+  opacity: 1;
+  position: relative;
+  top: 0px;
+  left: 0px;
+  overflow: hidden;
+}
+.v26_40 {
+  width: 973px;
+  color: rgba(0,0,0,1);
+  position: absolute;
+  top: 482px;
+  left: 282px;
+  font-family: Inter;
+  font-weight: Thin Italic;
+  font-size: 50px;
+  opacity: 1;
+  text-align: left;
+}
