@@ -15,7 +15,7 @@ var connectionString = mysql.createConnection(
     {
         host:"localhost",
         user: "root",
-        password:"b30m6yu*"
+        password:"put-pass-here"
     }
 );
 function createTable(CreateQuerry)
