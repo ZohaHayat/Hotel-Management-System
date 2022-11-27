@@ -8,13 +8,5 @@ CREATE TABLE users(
   PRIMARY KEY(user_id)
 );
 
-CREATE TABLE todo(
-  todo_id SERIAL,
-  user_id SERIAL ,
-  description VARCHAR(255),
-  PRIMARY KEY (todo_id),
-  FOREIGN KEY (user_id) REFERENCES users(user_id)
-);
 
-
-INSERT INTO users (user_name, user_email, user_password) VALUES ('henry', 'henryly213@gmail.com', 'kthl8822');
+INSERT INTO users (user_name, user_email, user_password) VALUES ('bakhtawar', '24100301@lums.edu.pk', 'bakhti123');
