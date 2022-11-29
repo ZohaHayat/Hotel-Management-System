@@ -1,5 +1,6 @@
 const express = require("express");
 const { updatePassword } = require("../../utilities/database");
+const auth = require("../../utilities/auth");
 const router = express.Router();
 
 router.get("/", (req, res) => {
@@ -10,13 +11,13 @@ router.patch(
   "/",
   auth.authenticate("local", { session: false }),
   (req, res) => {
-    const { user_id, password } = req.body;
-    updatePassword(user_id, password)
+    const { email, password, new_password } = req.body;
+    updatePassword(email, new_password)
       .then(() => {
-        res.sendStatus(200);
+        res.status(200);
       })
-      .catch((error) => {
-        res.status(500).json({ message: error.message });
-      });
+      .catch((error) => res.status(500).send({ message: error.message }));
   }
 );
+
+module.exports = router;
