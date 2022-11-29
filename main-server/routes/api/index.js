@@ -6,6 +6,7 @@ const auth = require("../../utilities/auth");
 // .../api/signup etc.
 router.use("/signup", require("./signup"));
 router.use("/login", require("./login"));
+router.use("/updatePassword", require("./updatePassword"));
 
 // authentication router (ignore for now -- this is entirely for authentication)
 router.use(auth.authenticate("jwt", { session: false }));
