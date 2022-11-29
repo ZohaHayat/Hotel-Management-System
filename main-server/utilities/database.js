@@ -1,7 +1,9 @@
 /**
  * THIS IS OUR MAIN FILE WHERE ALL SQL QUERIES RELATED TO EVERY USE-CASE
  * WILL BE CATERED.
- * GO THROUGH THIS FILE WITH EXTRA CARE
+ * GO THROUGH THIS FILE WITH EXTRA CARE.
+ * WHATEVER USE-CASE YOU CODE, MAKE SURE TO CODE A SIMILAR FUNCTION and export it
+ * from this file.
  */
 
 const pool = require("./db");
@@ -282,7 +284,7 @@ const insertInventory = async (invName, StaffID, category, quantity, Date) => {
   const query = `INSERT INTO Inventory (Inventory_item, StaffID, Category, Quantity, Date) VALUES (?, ?, ?, ?, ?)`;
   // values to seed
   let values = [invName, StaffID, category, quantity, currentDate];
-  
+
   return new Promise((resolve, reject) => {
     pool.query(query, values, (error, result) => {
       if (error) {
