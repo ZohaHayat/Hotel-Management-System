@@ -16,12 +16,20 @@ import { login } from "../api/backend";
 import AuthContext from "../context/AuthContext";
 
 function AuthForm({ title, onSubmit, error, children }) {
+  const navigate = useNavigate();
+
+  const routeChange = () =>{ 
+    let path = "/HomePage"; 
+    navigate(path);
+  }
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
     onSubmit(email, password);
+
   };
 
   return (
@@ -66,15 +74,19 @@ function AuthForm({ title, onSubmit, error, children }) {
             error={error}
             value={password}
             onChange={(event) => setPassword(event.target.value)}
+
           />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-          >
-            {title}
-          </Button>
+          <Link href="/HomePage">  
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+              onClick={routeChange}
+            >
+              {title}
+            </Button>
+          </Link>
           {children}
         </Box>
       </Box>
@@ -101,6 +113,8 @@ function LoginPage() {
         setError(true);
       });
   };
+
+  
 
   return (
     <AuthForm onSubmit={signIn} title="Log In" error={isError}>
