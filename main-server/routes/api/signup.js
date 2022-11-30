@@ -9,6 +9,7 @@ const router = express.Router();
  * the user to submit information if they want to sign up. This
  * message could be any string of your choice.
  */
+
 router.get("/", (req, res) => {
   res.json({ message: "Sign up" });
 });
