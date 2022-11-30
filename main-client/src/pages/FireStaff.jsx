@@ -16,14 +16,34 @@ import { fire } from "../api/backend";
 import AuthContext from "../context/AuthContext";
 
 
-function FireStaff() {
+function FireStaff({onSubmit}) {
+  const [email, setEmail] = useState("");
+
+  // const handleSubmit = (event) => {
+  //   event.preventDefault();
+  //   onSubmit(email);
+
+  // };
+
 
   return (
-    <div>hello fire staff page</div>
-  );
-    
+    <form onSubmit={onSubmit}>
+      <TextField
+        margin="normal"
+        required
+        fullWidth
+        id="email"
+        label="Email Address of staff you want to fire"
+        name="email"
+        autoComplete="email"
+        autoFocus
+        value={email}
+        onChange={(event) => setEmail(event.target.value)}
+      />
+      
+    </form>
+  )
 }
-
 
 
 export default FireStaff;

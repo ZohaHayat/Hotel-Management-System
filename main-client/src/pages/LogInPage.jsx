@@ -27,8 +27,8 @@ function AuthForm({ title, onSubmit, error, children }) {
   const [password, setPassword] = useState("");
 
   const handleSubmit = (event) => {
-    event.preventDefault();
-    onSubmit(email, password);
+    // event.preventDefault();
+    onSubmit(email);
 
   };
 
@@ -76,17 +76,17 @@ function AuthForm({ title, onSubmit, error, children }) {
             onChange={(event) => setPassword(event.target.value)}
 
           />
-          <Link href="/HomePage">  
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-              onClick={routeChange}
-            >
-              {title}
-            </Button>
-          </Link>
+            
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+            onClick={routeChange}
+          >
+            {title}
+          </Button>
+          
           {children}
         </Box>
       </Box>
