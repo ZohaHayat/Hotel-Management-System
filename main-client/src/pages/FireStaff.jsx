@@ -19,15 +19,15 @@ import AuthContext from "../context/AuthContext";
 function FireStaff({onSubmit}) {
   const [email, setEmail] = useState("");
 
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-  //   onSubmit(email);
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    onSubmit(email);
 
-  // };
+  };
 
 
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={handleSubmit}>
       <TextField
         margin="normal"
         required
