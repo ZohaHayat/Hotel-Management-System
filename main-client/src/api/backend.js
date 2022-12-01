@@ -22,8 +22,8 @@ export const home = (email, password) =>
 export const hire = (email, password) =>
   instance.get("/HireStaff", { email, password });
 
-export const fire = (email, password) =>
-  instance.get("/FireStaff", { email, password });
+export const fire = (email) =>
+  instance.post("/fire", { email });
 
 export const ViewInv = (email, password) =>
   instance.get("/ViewInv", { email, password });

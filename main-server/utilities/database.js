@@ -236,9 +236,15 @@ const insertStaff = async (
  * to the argument passed to the function. Only a single record is deleted
  * since a user cannot create two accounts using the same email id.
  */
-const deleteStaff = (email) => {
+const deleteStaff = async (email) => {
+  const response = await getUserByEmail(email);
+  // this means that the user does not exist
+  if (response.length === 0) {
+    return null;
+  }
   // query to execute
-  const query = `DELETE FROM Staff WHERE Email=?`;
+  console.log(email)
+  const query = `DELETE FROM users WHERE Email=?`;
   // values to seed
   let values = [email];
 
