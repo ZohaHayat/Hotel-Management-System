@@ -14,7 +14,7 @@ function ChangeStaffSch() {
 
         Axios.post("http://localhost:3001/setstaffsch",{
         sch: sch,
-        email, email
+        email: email
         }).then((response) => {
             if(response.data === "Does not exist")
             {

@@ -2,7 +2,7 @@ import React from 'react'
 import Axios from "axios";
 import { useState } from "react";
 
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function SignUp() {
     const [fname, setfname] = useState("");

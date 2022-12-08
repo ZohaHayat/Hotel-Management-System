@@ -36,22 +36,25 @@ app.post("/register", (req, res) => {
   (err, result) => {
     if (result.length == 0)
     { 
-      db.query("SELECT MAX(CustomerID) as id FROM customer", function (err,cust_id)
+      db.query("SELECT CustomerID as ID FROM customer", function(err, output)
+      {
+        if(output.length == 0)
         {
-          if(parseInt(cust_id[0].id) != null)
+          db.query("INSERT INTO customer VALUES (?,?,?,?,?,?)",
+              [1, email, fname, lname, password, 0]
+            )
+        }
+        else
+        {
+          db.query("SELECT MAX(CustomerID) as id FROM customer", function (err,cust_id)
           {
             db.query("INSERT INTO customer VALUES (?,?,?,?,?,?)",
               [parseInt(cust_id[0].id) + 1, email, fname, lname, password, 0]
             )
           }
-          else
-          {
-            db.query("INSERT INTO customer VALUES (?,?,?,?,?,?)",
-              [1, email, fname, lname, password, 0]
-            )
-          }
+        );
         }
-      );
+      });
       res.send("success");
     }
     else

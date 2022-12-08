@@ -21,7 +21,7 @@ function ViewBookingID() {
                 setEmptyTable(true);
             }
         });
-    }, [] ) ;
+    }) ;
 
     if(emptyTable)
     {             

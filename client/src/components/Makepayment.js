@@ -15,7 +15,9 @@ function MakePayment() {
     const pay = () => {
         Axios.post("http://localhost:3001/makepayment",{
         payment_amount: payment_amount,
-        custid: custid
+        custid: custid,
+        card: card,
+        pass: pass
         }).then((response) => {
             if(response.data === "No payments due")
             {
