@@ -133,22 +133,25 @@ app.post("/hiringstaff", (req, res) => {
   (err, result) => {
     if (result.length == 0)
     { 
-      db.query("SELECT MAX(StaffID) as id FROM staff", function (err,staff_id)
+      db.query("SELECT staffID FROM staff", function(err, output)
+      {
+        if(output.length == 0)
         {
-          if(parseInt(staff_id[0].id) != null)
-          {
-            db.query("INSERT INTO staff VALUES (?,?,?,?,?,?,?,?)",
-              [parseInt(staff_id[0].id) + 1, email, fname, lname, password, employee_type, salary, shift]
-            )
-          }
-          else
-          {
-            db.query("INSERT INTO staff VALUES (?,?,?,?,?,?,?,?)",
+          db.query("INSERT INTO staff VALUES (?,?,?,?,?,?,?,?)",
               [1, email, fname, lname, password, employee_type, salary, shift]
             )
-          }
         }
-      );
+        else
+        {
+          db.query("SELECT MAX(StaffID) as id FROM staff", function (err,staff_id)
+            {
+              db.query("INSERT INTO staff VALUES (?,?,?,?,?,?,?,?)",
+                [parseInt(staff_id[0].id) + 1, email, fname, lname, password, employee_type, salary, shift]
+              )
+            }
+          );
+        }
+      });
       res.send("success");
     }
     else
@@ -284,8 +287,6 @@ app.post("/makereservations", (req, res) => {
   const custid = req.body.custid;
   const bookingdate = req.body.date;
 
-  let book = 0;
-
   db.query("SELECT type_of_room, room_rate FROM room_rates WHERE type_of_room = (?)",
   [room_type],
   (err, result) => {
@@ -300,30 +301,36 @@ app.post("/makereservations", (req, res) => {
           }
           else
           {
-            db.query("UPDATE customer SET payments_due = payments_due + (?) WHERE CustomerID = (?)",
-              [result[0].room_rate, custid]
-            )
-            db.query("UPDATE hotel_rooms SET status = 'Not available' WHERE room_number = (?)",
-            [result2[0].room_number]
-            )
-            db.query("SELECT MAX(BookingID) as id FROM reservations", function (err,booking_id)
-            {
-              if(parseInt(booking_id[0].id) != null)
+            db.query("SELECT BookingID FROM reservations", function(err, output){
+              if(output.length == 0)
               {
-                db.query("INSERT INTO reservations VALUES (?,?,?,?,?,?)",
-                [parseInt(booking_id[0].id) + 1,result2[0].room_number,custid,bookingdate,checkin, checkout]
+                db.query("UPDATE customer SET payments_due = payments_due + (?) WHERE CustomerID = (?)",
+                  [result[0].room_rate, custid]
                 )
-                book = parseInt(booking_id[0].id) + 1;
-              }
-              else
-              {
+                db.query("UPDATE hotel_rooms SET status = 'Not available' WHERE room_number = (?)",
+                [result2[0].room_number]
+                )
                 db.query("INSERT INTO reservations VALUES (?,?,?,?,?,?)",
                   [1,result2[0].room_number,custid,bookingdate,checkin, checkout]
                 )
               }
-              res.send(booking_id);
-            }
-            );
+              else
+              {
+                db.query("UPDATE customer SET payments_due = payments_due + (?) WHERE CustomerID = (?)",
+                  [result[0].room_rate, custid]
+                )
+                db.query("UPDATE hotel_rooms SET status = 'Not available' WHERE room_number = (?)",
+                [result2[0].room_number]
+                )
+                db.query("SELECT MAX(BookingID) as id FROM reservations", function (err,booking_id)
+                {
+                  db.query("INSERT INTO reservations VALUES (?,?,?,?,?,?)",
+                  [parseInt(booking_id[0].id) + 1,result2[0].room_number,custid,bookingdate,checkin, checkout]
+                  )
+                  res.send(booking_id);
+                });
+              }
+            });
           }
         }
       )
@@ -631,39 +638,56 @@ app.post("/staffreservations", (req, res) => {
           }
           else
           {
-            db.query("SELECT MAX(BookingID) as id FROM reservations", function (err,booking_id)
-            {
-              db.query("SELECT customerid FROM customer WHERE email = (?)", [email], (err, result3) =>{
-                if(result3.length !=0)
-                {
-                  db.query("UPDATE customer SET payments_due = payments_due + (?) WHERE email = (?)",
-                    [result[0].room_rate, email]
-                  )
-                  db.query("UPDATE hotel_rooms SET status = 'Not available' WHERE room_number = (?)",
-                  [result2[0].room_number]
-                  )
-                  if(parseInt(booking_id[0].id) != null)
+            db.query("SELECT BookingID FROM reservations", function(err, output){
+              if(output.length == 0)
+              {
+                db.query("SELECT customerid FROM customer WHERE email = (?)", [email], (err, result3) =>{
+                  if(result3.length !=0)
                   {
-                    db.query("INSERT INTO reservations VALUES (?,?,?,?,?,?)",
-                    [parseInt(booking_id[0].id) + 1,result2[0].room_number,result3[0].customerid,bookingdate,checkin, checkout]
+                    db.query("UPDATE customer SET payments_due = payments_due + (?) WHERE email = (?)",
+                      [result[0].room_rate, email]
                     )
-                    book = parseInt(booking_id[0].id) + 1;
-                  }
-                  else
-                  {
+                    db.query("UPDATE hotel_rooms SET status = 'Not available' WHERE room_number = (?)",
+                    [result2[0].room_number]
+                    )
                     db.query("INSERT INTO reservations VALUES (?,?,?,?,?,?)",
                       [1,result2[0].room_number,result3[0].customerid,bookingdate,checkin, checkout]
                     )
+                    res.send(booking_id);
                   }
-                  res.send(booking_id);
-                }
-                else
+                  else
+                  {
+                    res.send("This customer does not exist")
+                  }
+                });
+              }
+              else
+              {
+                db.query("SELECT MAX(BookingID) as id FROM reservations", function (err,booking_id)
                 {
-                  res.send("This customer does not exist")
-                }
-              });
-            }
-            );
+                  db.query("SELECT customerid FROM customer WHERE email = (?)", [email], (err, result3) =>{
+                    if(result3.length !=0)
+                    {
+                      db.query("UPDATE customer SET payments_due = payments_due + (?) WHERE email = (?)",
+                        [result[0].room_rate, email]
+                      )
+                      db.query("UPDATE hotel_rooms SET status = 'Not available' WHERE room_number = (?)",
+                      [result2[0].room_number]
+                      )
+                      db.query("INSERT INTO reservations VALUES (?,?,?,?,?,?)",
+                      [parseInt(booking_id[0].id) + 1,result2[0].room_number,result3[0].customerid,bookingdate,checkin, checkout]
+                      )
+                      book = parseInt(booking_id[0].id) + 1;
+                      res.send(booking_id);
+                    }
+                    else
+                    {
+                      res.send("This customer does not exist");
+                    }
+                  });
+                });
+              }
+            });
           }
         }
       )

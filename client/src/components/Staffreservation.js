@@ -44,7 +44,7 @@ function StaffReservation() {
             else
             {
                 console.log("success");
-                alert("Booking has been made. Your booking ID is: " + (Number(response.data[0].id) + 1));
+                alert("Booking has been made. The booking ID is: " + (Number(response.data[0].id) + 1));
                 navigate("/staffhomepage/" + staff_type + "/" + staff_id);
             }
         });
