@@ -22,6 +22,10 @@ function SignIn() {
             {
                 alert("Failed! Account not recognised. Please sign up or check sign in details.");
             }
+            else if(response.data === "Passwords Do Not Match")
+            {
+                alert("Passwords Do Not Match");
+            }
             else if (response.data[0].CustomerID != null)
             {
                 custid = response.data[0].CustomerID;
