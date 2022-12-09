@@ -129,8 +129,7 @@ app.post("/signin", (req, res) => {
           }
         );
       }
-    }
-  );
+    });
 });
 
 app.get("/viewinventory", (req, res) => {
@@ -157,6 +156,7 @@ app.post("/hiringstaff", (req, res) => {
   const salary = req.body.salary;
   const shift = req.body.shift;
 
+  const hashed_password = bcrypt.hashSync(password, saltRounds);
 
   db.query("SELECT * FROM staff WHERE email = (?)",
   [email],
@@ -168,7 +168,7 @@ app.post("/hiringstaff", (req, res) => {
         if(output.length == 0)
         {
           db.query("INSERT INTO staff VALUES (?,?,?,?,?,?,?,?)",
-              [1, email, fname, lname, password, employee_type, salary, shift]
+              [1, email, fname, lname, hashed_password, employee_type, salary, shift]
             )
         }
         else
@@ -176,7 +176,7 @@ app.post("/hiringstaff", (req, res) => {
           db.query("SELECT MAX(StaffID) as id FROM staff", function (err,staff_id)
             {
               db.query("INSERT INTO staff VALUES (?,?,?,?,?,?,?,?)",
-                [parseInt(staff_id[0].id) + 1, email, fname, lname, password, employee_type, salary, shift]
+                [parseInt(staff_id[0].id) + 1, email, fname, lname, hashed_password, employee_type, salary, shift]
               )
             }
           );

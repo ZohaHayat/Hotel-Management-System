@@ -63,7 +63,7 @@ function HireStaff() {
             />
             <label>Password:</label>
                 <input 
-                type="text"
+                type="password"
                 onChange={(event) => {
                     setpassword(event.target.value);
             }}
