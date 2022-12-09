@@ -80,7 +80,7 @@ app.post("/signin", (req, res) => {
   const email = req.body.email;
   const pass = req.body.password;
   db.query(
-    "SELECT customer.email, customer.CustomerID FROM customer WHERE customer.email = (?)",
+    "SELECT customer.email, customer.CustomerID, password FROM customer WHERE customer.email = (?)",
     [email],
     async (err, result) => {
       // added async here to make it an async function
@@ -89,11 +89,18 @@ app.post("/signin", (req, res) => {
       } else if (result.length != 0) {
 
         bcrypt.compare(pass, result[0].password, function(err, hes){
-          res.send(result);
+          if(hes)
+          {
+            res.send(result);
+          }
+          else
+          {
+            res.send("Passwords Do Not Match")
+          }
         });
       } else {
         db.query(
-          "SELECT staff.email, staff.employee_type, staff.StaffID FROM staff WHERE staff.email = (?)",
+          "SELECT staff.email, staff.employee_type, staff.StaffID, password FROM staff WHERE staff.email = (?)",
           [email],
           async (err, result) => {
             if (err) 
@@ -105,10 +112,15 @@ app.post("/signin", (req, res) => {
               bcrypt.compare(
                 pass,
                 result[0].password, function(err,hes2){
-                  res.send(result);
-                }
-              );
-              res.send("Passwords Do Not Match");
+                  if(hes2)
+                  {
+                    res.send(result);
+                  }
+                  else
+                  {
+                    res.send("Passwords Do Not Match")
+                  }
+                });
             } 
             else 
             {
