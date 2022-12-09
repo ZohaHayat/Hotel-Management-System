@@ -1,8 +1,10 @@
 import React from 'react'
+import { useState } from "react"
 import { useNavigate, useParams } from "react-router-dom";
 
 function StaffHomepage(){ 
   let navigate = useNavigate();
+  const [option, setoption] = useState("");
   let {staff_type, staff_id} = useParams();
 
   const hirestaff = () => {
@@ -250,9 +252,90 @@ function StaffHomepage(){
     navigate("/signin");
 };
 
+const search = () => {
+  if(option === "Hire Staff")
+  {
+    hirestaff()
+  }
+  else if (option === "Fire Staff")
+  {
+    firestaff()
+  }
+  else if (option === "View Hotel Inventory")
+  {
+    viewinventory()
+  }
+  else if (option === "Update Hotel Inventory")
+  {
+    updateinventory()
+  }
+  else if (option === "Set Room Rates")
+  {
+    setroomrates()
+  }
+  else if (option === "Delete Room")
+  {
+    deleteroom()
+  }
+  else if( option === "Update account information")
+  {
+    updateaccinfo()
+  }
+  else if( option === "View staff panel")
+  {
+    viewstaffpanel()
+  }
+  else if (option ==="Add a facility")
+  {
+    addfacility()
+  }
+  else if(option === "Delete a facility")
+  {
+    deletefacility()
+  }
+  else if(option === "Change Staff Schedule")
+  {
+    changeSch()
+  }
+  else if(option === "Make customer reservation")
+  {
+    staffreservation()
+  }
+  else if(option === "Cancel customer reservation")
+  {
+    staffcancelreservation()
+  }
+  else if(option === "List of Available Rooms")
+  {
+    staffrooms()
+  }
+  else if(option === "Search for a Booking")
+  {
+    searchbooking()
+  }
+  else if(option === "Update Password")
+  {
+    Supdatepasswords()
+  }
+};
+
   return (
         <div>
          <h2 id="panel"> Staff Homepage </h2>
+
+         <label></label>
+                <input 
+                type="text"
+                placeholder="Search here..."
+                onChange={(event) => {
+                    setoption(event.target.value);
+            }}
+            /> 
+            <button id='panel_search'
+                onClick={(event) => [search()]}>
+                Search
+            </button>
+
             <button
                 onClick={(event) => [hirestaff()]}>
                 Hire Staff

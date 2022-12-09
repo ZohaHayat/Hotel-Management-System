@@ -41,6 +41,12 @@ function StaffReservation() {
             {
                 alert("This customer does not exist");
             }
+            else if(reserve.send === "success")
+            {
+                console.log("success");
+                alert("Booking has been made. The booking ID is: " + "1");
+                navigate("/staffhomepage/" + staff_type + "/" + staff_id);
+            }
             else
             {
                 console.log("success");

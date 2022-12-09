@@ -32,9 +32,15 @@ function MakeReservation() {
             {
                 alert("No such rooms exists.");
             }
-            if(response.data === "All such rooms are booked")
+            else if(response.data === "All such rooms are booked")
             {
                 alert("All such rooms are booked.");
+            }
+            else if(response.data === "success")
+            {
+                console.log("success");
+                alert("Booking has been made. Your booking ID is: " + "1");
+                navigate("/homepage/" + custid);
             }
             else
             {
