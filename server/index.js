@@ -329,6 +329,7 @@ app.post("/makereservations", (req, res) => {
                 db.query("INSERT INTO reservations VALUES (?,?,?,?,?,?)",
                   [1,result2[0].room_number,custid,bookingdate,checkin, checkout]
                 )
+                res.send("success");
               }
               else
               {
@@ -649,7 +650,7 @@ app.post("/staffreservations", (req, res) => {
                     db.query("INSERT INTO reservations VALUES (?,?,?,?,?,?)",
                       [1,result2[0].room_number,result3[0].customerid,bookingdate,checkin, checkout]
                     )
-                    res.send(booking_id);
+                    res.send("success");
                   }
                   else
                   {
