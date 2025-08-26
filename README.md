@@ -8,7 +8,7 @@ The system was deployed on Heroku with CI/CD pipelines, ensuring scalability, re
 ## Features  
 - 🏨 Reservation booking engine with real-time room availability  
 - 💳 Automated billing calculations with secure transactions  
-- 👥 Guest check-in/check-out workflows with role-based access control  
+- 👥 Guest check-in/check-out workflows with role-based access control 
 - ⚡ Optimized database queries for faster response times  
 - ☁️ Deployed on Heroku with CI/CD for scalability and reliability  
 
